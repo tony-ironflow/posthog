@@ -1,16 +1,4 @@
 posthog.dev-gov.ironflow.ai {
-    header {
-        Access-Control-Allow-Origin "http://localhost:3000"
-        Access-Control-Allow-Methods "GET, POST, PUT, PATCH, DELETE, OPTIONS"
-        Access-Control-Allow-Headers "Content-Type, Authorization"
-        Access-Control-Allow-Credentials "true"
-    }
-
-    @options method OPTIONS
-    handle @options {
-        respond 204
-    }
-
     @ingest-capture {
         path /ingest/e /ingest/e/ /ingest/e/*
         path /ingest/batch /ingest/batch/ /ingest/batch/*
@@ -51,12 +39,12 @@ posthog.dev-gov.ironflow.ai {
         reverse_proxy replay-capture:3000
     }
 
-    @ingest-web {
+    @ingest-flags {
         path /ingest/decide /ingest/decide/ /ingest/decide/*
         path /ingest/flags /ingest/flags/ /ingest/flags/*
     }
 
-    handle @ingest-web {
+    handle @ingest-flags {
         uri strip_prefix /ingest
         reverse_proxy web:8000
     }
