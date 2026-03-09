@@ -120,9 +120,10 @@ services:
     deploy:
       resources:
         limits:
-          memory: 2G
+          memory: 4G
     environment:
       CELERY_WORKER_CONCURRENCY: '2'
+      SKIP_ASYNC_MIGRATIONS_SETUP: '1'
       SECRET_KEY: 'fc4807d4970911313b5e61e0a34dedb4470d73dccf8e984ad6de2c6c661bf4ef'
       PLUGIN_SERVER_IDLE: 1
       OTEL_SDK_DISABLED: 'true'
@@ -145,6 +146,7 @@ services:
       DEPLOYMENT: hobby
       CDP_API_URL: 'http://plugins:6738'
       FLAGS_REDIS_ENABLED: 'false'
+      POSTHOG_SKIP_MIGRATION_CHECKS: 'true'
     depends_on:
       db:
         condition: service_healthy
@@ -155,12 +157,23 @@ services:
       kafka:
         condition: service_healthy
 
+  caddy:
+    image: caddy:2
+    restart: on-failure
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./Caddyfile.local:/etc/caddy/Caddyfile
+      - posthog-local-caddy-data:/data
+      - posthog-local-caddy-config:/config
+    depends_on:
+      - web
+
   web:
     image: ghcr.io/posthog/posthog:latest
     command: /bin/bash -c "./bin/migrate-check && ./bin/docker-server-unit"
     restart: on-failure
-    ports:
-      - '80:8000'
     environment:
       SECRET_KEY: 'fc4807d4970911313b5e61e0a34dedb4470d73dccf8e984ad6de2c6c661bf4ef'
       USE_GRANIAN: 'true'
@@ -168,6 +181,7 @@ services:
       OTEL_SDK_DISABLED: 'true'
       DISABLE_SECURE_SSL_REDIRECT: 'true'
       IS_BEHIND_PROXY: 'true'
+      SITE_URL: 'https://posthog.dev-gov.ironflow.ai'
       DATABASE_URL: 'postgres://posthog:posthog@db:5432/posthog'
       CLICKHOUSE_HOST: 'clickhouse'
       CLICKHOUSE_DATABASE: 'posthog'
@@ -188,6 +202,42 @@ services:
       OBJECT_STORAGE_ENDPOINT: http://objectstorage:19000
       POSTHOG_SKIP_MIGRATION_CHECKS: 'true'
       JS_URL: ''
+    depends_on:
+      db:
+        condition: service_healthy
+      redis7:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  plugins:
+    image: ghcr.io/posthog/posthog-node:latest
+    command: node nodejs/dist/index.js
+    restart: on-failure
+    environment:
+      SECRET_KEY: 'fc4807d4970911313b5e61e0a34dedb4470d73dccf8e984ad6de2c6c661bf4ef'
+      DATABASE_URL: 'postgres://posthog:posthog@db:5432/posthog'
+      PERSONS_DATABASE_URL: 'postgres://posthog:posthog@db:5432/posthog'
+      BEHAVIORAL_COHORTS_DATABASE_URL: 'postgres://posthog:posthog@db:5432/posthog'
+      KAFKA_HOSTS: 'kafka:9092'
+      REDIS_URL: 'redis://redis7:6379/'
+      CLICKHOUSE_HOST: 'clickhouse'
+      CLICKHOUSE_DATABASE: 'posthog'
+      CLICKHOUSE_SECURE: 'false'
+      CLICKHOUSE_VERIFY: 'false'
+      CDP_REDIS_HOST: redis7
+      CDP_REDIS_PORT: 6379
+      INGESTION_REDIS_HOST: redis7
+      POSTHOG_REDIS_HOST: redis7
+      LOGS_REDIS_HOST: redis7
+      COOKIELESS_REDIS_HOST: redis7
+      COOKIELESS_REDIS_PORT: 6379
+      SESSION_RECORDING_API_REDIS_HOST: redis7
+      SESSION_RECORDING_API_REDIS_PORT: 6379
+      OTEL_SDK_DISABLED: 'true'
+      ENCRYPTION_SALT_KEYS: '00beef0000beef0000beef0000beef00'
     depends_on:
       db:
         condition: service_healthy
@@ -227,4 +277,6 @@ services:
 volumes:
   posthog-local-pg-data:
   posthog-local-redpanda-data:
+  posthog-local-caddy-data:
+  posthog-local-caddy-config:
 
