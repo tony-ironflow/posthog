@@ -1,3 +1,65 @@
 posthog.dev-gov.ironflow.ai {
+    header {
+        Access-Control-Allow-Origin "http://localhost:3000"
+        Access-Control-Allow-Methods "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+        Access-Control-Allow-Headers "Content-Type, Authorization"
+        Access-Control-Allow-Credentials "true"
+    }
+
+    @options method OPTIONS
+    handle @options {
+        respond 204
+    }
+
+    @ingest-capture {
+        path /ingest/e /ingest/e/ /ingest/e/*
+        path /ingest/batch /ingest/batch/ /ingest/batch/*
+        path /ingest/capture /ingest/capture/ /ingest/capture/*
+        path /ingest/i/v0 /ingest/i/v0/ /ingest/i/v0/*
+    }
+
+    handle @ingest-capture {
+        uri strip_prefix /ingest
+        reverse_proxy capture:3000
+    }
+
+    @capture {
+        path /e /e/ /e/*
+        path /batch /batch/ /batch/*
+        path /capture /capture/ /capture/*
+        path /i/v0 /i/v0/ /i/v0/*
+    }
+
+    handle @capture {
+        reverse_proxy capture:3000
+    }
+
+    @ingest-replay {
+        path /ingest/s /ingest/s/ /ingest/s/*
+    }
+
+    handle @ingest-replay {
+        uri strip_prefix /ingest
+        reverse_proxy replay-capture:3000
+    }
+
+    @replay-capture {
+        path /s /s/ /s/*
+    }
+
+    handle @replay-capture {
+        reverse_proxy replay-capture:3000
+    }
+
+    @ingest-web {
+        path /ingest/decide /ingest/decide/ /ingest/decide/*
+        path /ingest/flags /ingest/flags/ /ingest/flags/*
+    }
+
+    handle @ingest-web {
+        uri strip_prefix /ingest
+        reverse_proxy web:8000
+    }
+
     reverse_proxy web:8000
 }

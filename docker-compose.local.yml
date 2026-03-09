@@ -157,6 +157,38 @@ services:
       kafka:
         condition: service_healthy
 
+  capture:
+    image: ghcr.io/posthog/posthog/capture:master
+    restart: on-failure
+    environment:
+      ADDRESS: '0.0.0.0:3000'
+      KAFKA_TOPIC: 'events_plugin_ingestion'
+      KAFKA_HOSTS: 'kafka:9092'
+      REDIS_URL: 'redis://redis7:6379/'
+      CAPTURE_MODE: events
+      RUST_LOG: 'info,rdkafka=warn'
+    depends_on:
+      redis7:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  replay-capture:
+    image: ghcr.io/posthog/posthog/capture:master
+    restart: on-failure
+    environment:
+      ADDRESS: '0.0.0.0:3000'
+      KAFKA_TOPIC: 'session_recording_snapshot_item_events'
+      KAFKA_HOSTS: 'kafka:9092'
+      REDIS_URL: 'redis://redis7:6379/'
+      CAPTURE_MODE: recordings
+      RUST_LOG: 'info,rdkafka=warn'
+    depends_on:
+      redis7:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
   caddy:
     image: caddy:2
     restart: on-failure
@@ -169,6 +201,8 @@ services:
       - posthog-local-caddy-config:/config
     depends_on:
       - web
+      - capture
+      - replay-capture
 
   web:
     image: ghcr.io/posthog/posthog:latest
