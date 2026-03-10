@@ -155,6 +155,7 @@ services:
       SESSION_RECORDING_V2_S3_ACCESS_KEY_ID: 'object_storage_root_user'
       SESSION_RECORDING_V2_S3_SECRET_ACCESS_KEY: 'object_storage_root_password'
       SESSION_RECORDING_V2_S3_BUCKET: 'posthog'
+      RECORDING_API_URL: http://plugins:6738
       POSTHOG_SKIP_MIGRATION_CHECKS: 'true'
     depends_on:
       db:
@@ -251,6 +252,7 @@ services:
       SESSION_RECORDING_V2_S3_ACCESS_KEY_ID: 'object_storage_root_user'
       SESSION_RECORDING_V2_S3_SECRET_ACCESS_KEY: 'object_storage_root_password'
       SESSION_RECORDING_V2_S3_BUCKET: 'posthog'
+      RECORDING_API_URL: http://plugins:6738
       POSTHOG_SKIP_MIGRATION_CHECKS: 'true'
       JS_URL: ''
     depends_on:
@@ -266,7 +268,7 @@ services:
   plugins:
     image: ghcr.io/posthog/posthog-node:latest
     command: node nodejs/dist/index.js
-    restart: on-failure
+    restart: always
     environment:
       SECRET_KEY: 'fc4807d4970911313b5e61e0a34dedb4470d73dccf8e984ad6de2c6c661bf4ef'
       DATABASE_URL: 'postgres://posthog:posthog@db:5432/posthog'
@@ -281,8 +283,12 @@ services:
       CDP_REDIS_HOST: redis7
       CDP_REDIS_PORT: 6379
       INGESTION_REDIS_HOST: redis7
+      INGESTION_REDIS_PORT: 6379
       POSTHOG_REDIS_HOST: redis7
+      POSTHOG_REDIS_PORT: 6379
       LOGS_REDIS_HOST: redis7
+      LOGS_REDIS_PORT: 6379
+      LOGS_REDIS_TLS: 'false'
       COOKIELESS_REDIS_HOST: redis7
       COOKIELESS_REDIS_PORT: 6379
       SESSION_RECORDING_API_REDIS_HOST: redis7
