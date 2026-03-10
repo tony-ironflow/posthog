@@ -146,6 +146,15 @@ services:
       DEPLOYMENT: hobby
       CDP_API_URL: 'http://plugins:6738'
       FLAGS_REDIS_ENABLED: 'false'
+      OBJECT_STORAGE_ENDPOINT: http://objectstorage:19000
+      OBJECT_STORAGE_ACCESS_KEY_ID: 'object_storage_root_user'
+      OBJECT_STORAGE_SECRET_ACCESS_KEY: 'object_storage_root_password'
+      OBJECT_STORAGE_ENABLED: 'true'
+      OBJECT_STORAGE_BUCKET: 'posthog'
+      SESSION_RECORDING_V2_S3_ENDPOINT: http://objectstorage:19000
+      SESSION_RECORDING_V2_S3_ACCESS_KEY_ID: 'object_storage_root_user'
+      SESSION_RECORDING_V2_S3_SECRET_ACCESS_KEY: 'object_storage_root_password'
+      SESSION_RECORDING_V2_S3_BUCKET: 'posthog'
       POSTHOG_SKIP_MIGRATION_CHECKS: 'true'
     depends_on:
       db:
@@ -234,6 +243,14 @@ services:
       CDP_API_URL: 'http://plugins:6738'
       FLAGS_REDIS_ENABLED: 'false'
       OBJECT_STORAGE_ENDPOINT: http://objectstorage:19000
+      OBJECT_STORAGE_ACCESS_KEY_ID: 'object_storage_root_user'
+      OBJECT_STORAGE_SECRET_ACCESS_KEY: 'object_storage_root_password'
+      OBJECT_STORAGE_ENABLED: 'true'
+      OBJECT_STORAGE_BUCKET: 'posthog'
+      SESSION_RECORDING_V2_S3_ENDPOINT: http://objectstorage:19000
+      SESSION_RECORDING_V2_S3_ACCESS_KEY_ID: 'object_storage_root_user'
+      SESSION_RECORDING_V2_S3_SECRET_ACCESS_KEY: 'object_storage_root_password'
+      SESSION_RECORDING_V2_S3_BUCKET: 'posthog'
       POSTHOG_SKIP_MIGRATION_CHECKS: 'true'
       JS_URL: ''
     depends_on:
@@ -272,6 +289,15 @@ services:
       SESSION_RECORDING_API_REDIS_PORT: 6379
       OTEL_SDK_DISABLED: 'true'
       ENCRYPTION_SALT_KEYS: '00beef0000beef0000beef0000beef00'
+      OBJECT_STORAGE_ENDPOINT: http://objectstorage:19000
+      OBJECT_STORAGE_ACCESS_KEY_ID: 'object_storage_root_user'
+      OBJECT_STORAGE_SECRET_ACCESS_KEY: 'object_storage_root_password'
+      OBJECT_STORAGE_ENABLED: 'true'
+      OBJECT_STORAGE_BUCKET: 'posthog'
+      SESSION_RECORDING_V2_S3_ENDPOINT: http://objectstorage:19000
+      SESSION_RECORDING_V2_S3_ACCESS_KEY_ID: 'object_storage_root_user'
+      SESSION_RECORDING_V2_S3_SECRET_ACCESS_KEY: 'object_storage_root_password'
+      SESSION_RECORDING_V2_S3_BUCKET: 'posthog'
     depends_on:
       db:
         condition: service_healthy
