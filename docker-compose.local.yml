@@ -218,6 +218,8 @@ services:
     image: ghcr.io/posthog/posthog:latest
     command: /bin/bash -c "./bin/migrate-check && ./bin/docker-server-unit"
     restart: on-failure
+    volumes:
+      - ./posthog:/code/posthog                                                                             
     environment:
       SECRET_KEY: 'fc4807d4970911313b5e61e0a34dedb4470d73dccf8e984ad6de2c6c661bf4ef'
       USE_GRANIAN: 'true'
