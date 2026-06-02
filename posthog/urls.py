@@ -219,7 +219,7 @@ urlpatterns = [
     # opt_slash_path("api/signup/precheck", signup.SignupEmailPrecheckViewset.as_view()),
     # opt_slash_path("api/signup", signup.SignupViewset.as_view()),
     # opt_slash_path("api/social_signup", signup.SocialSignupViewset.as_view()),
-    # path("api/signup/<str:invite_id>/", signup.InviteSignupViewset.as_view()),
+    path("api/signup/<str:invite_id>/", signup.InviteSignupViewset.as_view()),
     # path(
     #     "api/reset/<str:user_uuid>/",
     #     authentication.PasswordResetCompleteViewSet.as_view({"get": "retrieve", "post": "create"}),
@@ -268,9 +268,9 @@ urlpatterns = [
     #     sharing.SharingViewerPageViewSet.as_view({"get": "retrieve"}),
     # ),
     # path("site_app/<int:id>/<str:token>/<str:hash>/", site_app.get_site_app),
-    # path("array/<str:token>/config", remote_config.RemoteConfigAPIView.as_view()),
-    # path("array/<str:token>/config.js", remote_config.RemoteConfigJSAPIView.as_view()),
-    # path("array/<str:token>/array.js", remote_config.RemoteConfigArrayJSAPIView.as_view()),
+    path("array/<str:token>/config", remote_config.RemoteConfigAPIView.as_view()),
+    path("array/<str:token>/config.js", remote_config.RemoteConfigJSAPIView.as_view()),
+    path("array/<str:token>/array.js", remote_config.RemoteConfigArrayJSAPIView.as_view()),
     # re_path(r"^demo.*", login_required(demo_route)),
     # path("", include((oauth2_urls, "oauth2_provider"), namespace="oauth2_provider")),
     # ingestion
@@ -344,8 +344,8 @@ if settings.TEST:
 # Routes added individually to remove login requirement
 frontend_unauthenticated_routes = [
     # "preflight",
-    # "signup",
-    # r"signup\/[A-Za-z0-9\-]*",
+    "signup",
+    r"signup\/[A-Za-z0-9\-]*",
     #  "reset",
     # "organization/billing/subscribed",
     # "organization/confirm-creation",
