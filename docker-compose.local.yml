@@ -110,6 +110,8 @@ services:
       MINIO_ROOT_PASSWORD: object_storage_root_password
     entrypoint: sh
     command: -c 'mkdir -p /data/posthog /data/ducklake-dev /data/ai-blobs && minio server --address ":19000" --console-address ":19001" /data'
+    volumes:
+      - posthog-local-objectstorage-data:/data
     ports:
       - '6190:19000'
       - '6191:19001'
@@ -349,4 +351,5 @@ volumes:
   posthog-local-caddy-data:
   posthog-local-caddy-config:
   posthog-local-clickhouse-data:
+  posthog-local-objectstorage-data:
 
