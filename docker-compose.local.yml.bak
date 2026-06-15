@@ -94,7 +94,6 @@ services:
       - ./docker/clickhouse/users-dev.xml:/etc/clickhouse-server/users.xml
       - ./docker/clickhouse/user_defined_function.xml:/etc/clickhouse-server/user_defined_function.xml
       - ./posthog/user_scripts:/var/lib/clickhouse/user_scripts
-      - posthog-local-clickhouse-data:/var/lib/clickhouse
     depends_on:
       - kafka
       - zookeeper
@@ -348,5 +347,4 @@ volumes:
   posthog-local-redpanda-data:
   posthog-local-caddy-data:
   posthog-local-caddy-config:
-  posthog-local-clickhouse-data:
 
