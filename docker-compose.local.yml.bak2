@@ -31,18 +31,12 @@ services:
       interval: 3s
       timeout: 10s
       retries: 10
-    volumes:
-      - posthog-local-redis-data:/data
     ports:
       - '6479:6379'
 
   zookeeper:
     image: zookeeper:3.7.0
     restart: on-failure
-    volumes:
-      - posthog-local-zookeeper-data:/data
-      - posthog-local-zookeeper-datalog:/datalog
-      - posthog-local-zookeeper-logs:/logs
 
   kafka:
     image: docker.redpanda.com/redpandadata/redpanda:v25.1.9
@@ -358,8 +352,4 @@ volumes:
   posthog-local-caddy-config:
   posthog-local-clickhouse-data:
   posthog-local-objectstorage-data:
-  posthog-local-redis-data:
-  posthog-local-zookeeper-data:
-  posthog-local-zookeeper-datalog:
-  posthog-local-zookeeper-logs:
 
