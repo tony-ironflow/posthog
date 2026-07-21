@@ -67,7 +67,7 @@ jobs:
         steps:
             # For pull requests it's not necessary to checkout the code, but we
             # also want this to run on master so we need to checkout
-            - uses: actions/checkout@v6
+            - uses: actions/checkout@v7
               with:
                   clean: false
             - name: Clean up data directories with container permissions
@@ -216,7 +216,7 @@ jobs:
             matrix: ${{ steps.discover.outputs.matrix }}
 
         steps:
-            - uses: actions/checkout@v6
+            - uses: actions/checkout@v7
 
             - name: Setup pnpm
               uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
@@ -305,7 +305,7 @@ jobs:
                 include: ${{ fromJson(needs.turbo-discover.outputs.matrix) }}
 
         steps:
-            - uses: actions/checkout@v6
+            - uses: actions/checkout@v7
 
             # Start Docker early (before dependency installs) so containers can pull
             # images and initialize while we install deps. This matches the pattern
@@ -447,7 +447,7 @@ jobs:
         name: Repo checks
         runs-on: depot-ubuntu-latest
         steps:
-            - uses: actions/checkout@v6
+            - uses: actions/checkout@v7
 
             - name: Set up Python
               uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
@@ -487,7 +487,7 @@ jobs:
         runs-on: depot-ubuntu-latest
 
         steps:
-            - uses: actions/checkout@v6
+            - uses: actions/checkout@v7
               with:
                   clean: false
             - name: Clean up data directories with container permissions
@@ -538,7 +538,7 @@ jobs:
 
             # First running migrations from master, to simulate the real-world scenario
             - name: Checkout master
-              uses: actions/checkout@v6
+              uses: actions/checkout@v7
               with:
                   ref: master
                   clean: false
@@ -573,7 +573,7 @@ jobs:
 
             # Now we can consider this PR's migrations
             - name: Checkout this PR
-              uses: actions/checkout@v6
+              uses: actions/checkout@v7
               with:
                   clean: false
                   # Use app token so the git extraheader is set correctly for the OpenAPI
@@ -1022,7 +1022,7 @@ jobs:
                       group: 7
 
         steps:
-            - uses: actions/checkout@v6
+            - uses: actions/checkout@v7
               with:
                   fetch-depth: 1
                   repository: ${{ github.event.pull_request.head.repo.full_name }}
@@ -1399,7 +1399,7 @@ jobs:
             # Whether to skip compat tests (no additional versions to test)
             skip_compat: ${{ steps.read-versions.outputs.skip_compat }}
         steps:
-            - uses: actions/checkout@v6
+            - uses: actions/checkout@v7
               with:
                   sparse-checkout: .github/clickhouse-versions.json
                   sparse-checkout-cone-mode: false
@@ -1445,7 +1445,7 @@ jobs:
             matrix:
                 clickhouse-server-image: ${{ fromJson(needs.get_clickhouse_versions.outputs.compat_versions) }}
         steps:
-            - uses: actions/checkout@v6
+            - uses: actions/checkout@v7
               with:
                   fetch-depth: 1
                   clean: false
@@ -1493,7 +1493,7 @@ jobs:
                   private_key: ${{ secrets.GH_APP_POSTHOG_TESTS_PRIVATE_KEY }}
 
             - name: Checkout
-              uses: actions/checkout@v6
+              uses: actions/checkout@v7
               with:
                   ref: ${{ github.event.pull_request.head.sha }}
                   repository: ${{ github.event.pull_request.head.repo.full_name }}
@@ -1628,7 +1628,7 @@ jobs:
         runs-on: depot-ubuntu-latest
         steps:
             - name: 'Checkout repo'
-              uses: actions/checkout@v6
+              uses: actions/checkout@v7
               with:
                   fetch-depth: 1
                   clean: false
@@ -1741,7 +1741,7 @@ jobs:
                 working-directory: services/llm-gateway
 
         steps:
-            - uses: actions/checkout@v6
+            - uses: actions/checkout@v7
 
             - name: Set up Python
               uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0

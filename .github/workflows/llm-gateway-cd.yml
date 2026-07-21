@@ -23,7 +23,7 @@ jobs:
 
         steps:
             - name: Check out llm-gateway code
-              uses: actions/checkout@v6
+              uses: actions/checkout@v7
               with:
                   sparse-checkout: 'services/llm-gateway/'
                   sparse-checkout-cone-mode: false

@@ -40,7 +40,7 @@ jobs:
                   destination_repo: 'https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/posthog/posthog-foss.git'
                   destination_branch: 'refs/tags/*'
             - name: Checkout posthog-foss
-              uses: actions/checkout@v6
+              uses: actions/checkout@v7
               with:
                   repository: 'posthog/posthog-foss'
                   ref: master

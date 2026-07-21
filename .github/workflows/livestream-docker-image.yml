@@ -22,7 +22,7 @@ jobs:
 
         steps:
             - name: Check out livestream code
-              uses: actions/checkout@v6
+              uses: actions/checkout@v7
               with:
                   sparse-checkout: 'livestream/'
                   sparse-checkout-cone-mode: false

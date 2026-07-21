@@ -44,7 +44,7 @@ jobs:
         steps:
             # For pull requests it's not necessary to checkout the code, but we
             # also want this to run on master so we need to checkout
-            - uses: actions/checkout@v6
+            - uses: actions/checkout@v7
               with:
                   clean: false
 
@@ -76,7 +76,7 @@ jobs:
         outputs:
             oldest_supported: ${{ steps.read-versions.outputs.oldest_supported }}
         steps:
-            - uses: actions/checkout@v6
+            - uses: actions/checkout@v7
               with:
                   sparse-checkout: .github/clickhouse-versions.json
                   sparse-checkout-cone-mode: false
@@ -101,7 +101,7 @@ jobs:
         runs-on: depot-ubuntu-latest
         steps:
             - name: 'Checkout repo'
-              uses: actions/checkout@v6
+              uses: actions/checkout@v7
               with:
                   fetch-depth: 1
                   clean: false
