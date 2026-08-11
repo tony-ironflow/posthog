@@ -132,7 +132,7 @@ jobs:
                   echo "::add-matcher::.github/mypy-problem-matcher.json"
 
             - name: Restore mypy cache
-              uses: actions/cache/restore@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5
+              uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v5
               with:
                   path: .mypy_cache
                   key: mypy-cache-${{ runner.os }}-3.12-${{ hashFiles('**/pyproject.toml', '**/mypy.ini') }}
