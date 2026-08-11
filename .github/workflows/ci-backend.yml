@@ -346,7 +346,7 @@ jobs:
 
             - name: Install uv
               id: setup-uv
-              uses: astral-sh/setup-uv@61cb8a9741eeb8a550a1b8544337180c0fc8476b # v7.2.0
+              uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
               with:
                   version: '0.10.2' # pinned: unpinned setup-uv calls GH API on every job, exhausts rate limit
                   enable-cache: true
@@ -455,7 +455,7 @@ jobs:
                   python-version: 3.12.12
 
             - name: Install uv
-              uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.3.0
+              uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
               with:
                   version: '0.10.2' # pinned: unpinned setup-uv calls GH API on every job, exhausts rate limit
 
@@ -509,7 +509,7 @@ jobs:
 
             - name: Install uv
               id: setup-uv
-              uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.3.0
+              uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
               with:
                   version: '0.10.2' # pinned: unpinned setup-uv calls GH API on every job, exhausts rate limit
                   enable-cache: true
@@ -1099,7 +1099,7 @@ jobs:
 
             - name: Install uv
               id: setup-uv-tests
-              uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.3.0
+              uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
               with:
                   version: '0.10.2' # pinned: unpinned setup-uv calls GH API on every job, exhausts rate limit
                   enable-cache: true
@@ -1652,7 +1652,7 @@ jobs:
 
             - name: Install uv
               id: setup-uv-async
-              uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.3.0
+              uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
               with:
                   version: '0.10.2' # pinned: unpinned setup-uv calls GH API on every job, exhausts rate limit
                   enable-cache: true
@@ -1749,7 +1749,7 @@ jobs:
                   python-version: '3.12'
 
             - name: Install uv
-              uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.3.0
+              uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
               with:
                   version: '0.10.2' # pinned: unpinned setup-uv calls GH API on every job, exhausts rate limit
 
